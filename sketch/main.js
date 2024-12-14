@@ -5,6 +5,14 @@ const aspectH = 3;
 // html에서 클래스명이 container-canvas인 첫 엘리먼트: 컨테이너 가져오기.
 const container = document.body.querySelector('.container-canvas');
 // 필요에 따라 이하에 변수 생성.
+let capture;
+let colorOpacity = 40;
+let noseOpacity = 0;
+let noseColorR = 255;
+let noseColorG = 255;
+let noseColorB = 255;
+let opacity = false;
+let filter = false;
 
 function setup() {
   // 컨테이너의 현재 위치, 크기 등의 정보 가져와서 객체구조분해할당을 통해 너비, 높이 정보를 변수로 추출.
@@ -31,14 +39,71 @@ function setup() {
   }
   init();
   // createCanvas를 제외한 나머지 구문을 여기 혹은 init()에 작성.
+  capture = createCapture(VIDEO);
+  capture.size(1000, 1000);
+  capture.hide();
+  // colorMode(HSB);
 }
 
 // windowResized()에서 setup()에 준하는 구문을 실행해야할 경우를 대비해 init이라는 명칭의 함수를 만들어 둠.
 function init() {}
 
 function draw() {
-  background('white');
-  circle(mouseX, mouseY, 50);
+  // background(220);
+  image(capture, 0, 0, width, height);
+  // // circle(mouseX, mouseY, 50);
+  // let lineHue = mouseX - mouseY;
+  // strokeWeight(50);
+  // stroke(lineHue, 90, 90);
+  // line(pmouseX, pmouseY, mouseX, mouseY);
+
+  noStroke();
+  fill(250, 255, 255, colorOpacity);
+  ellipse(width * 0.5, height * 0.4, width * 0.35, height * 0.5);
+  //얼굴 위치치
+
+  fill(noseColorR, noseColorG, noseColorB, noseOpacity);
+  circle(width * 0.5, height * 0.5, width * 0.08);
+  //루돌프 코
+
+  if (opacity) {
+    colorOpacity = 0; // 버튼이 눌린 상태일 때 색상
+  } else {
+    colorOpacity = 40; // 버튼이 눌리지 않은 상태일 때 색상
+  }
+
+  if (filter) {
+    noseOpacity = 255; // 버튼이 눌린 상태일 때 색상
+  } else {
+    noseOpacity = 0; // 버튼이 눌리지 않은 상태일 때 색상
+  }
+}
+
+function keyPressed() {
+  if (key === 'S' || key === 's') {
+    opacity = !opacity;
+  }
+  if (key === 'F' || key === 'f') {
+    filter = !filter;
+  }
+}
+
+function mouseClicked() {
+  if (noseColorR === 0) {
+    noseColorR = random(0, 255);
+  } else {
+    noseColorR = random(0, 255);
+  }
+  if (noseColorG === 0) {
+    noseColorG = random(0, 255);
+  } else {
+    noseColorG = random(0, 255);
+  }
+  if (noseColorB === 0) {
+    noseColorB = random(0, 255);
+  } else {
+    noseColorB = random(0, 255);
+  }
 }
 
 function windowResized() {
