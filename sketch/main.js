@@ -8,11 +8,12 @@ const container = document.body.querySelector('.container-canvas');
 let capture;
 let colorOpacity = 40;
 let noseOpacity = 0;
-let noseColorR = 255;
-let noseColorG = 255;
+let noseColorH = 255;
+let noseColorS = 255;
 let noseColorB = 255;
 let opacity = false;
 let filter = false;
+let sparkleCounter = 0;
 
 function setup() {
   // 컨테이너의 현재 위치, 크기 등의 정보 가져와서 객체구조분해할당을 통해 너비, 높이 정보를 변수로 추출.
@@ -42,7 +43,7 @@ function setup() {
   capture = createCapture(VIDEO);
   capture.size(1000, 1000);
   capture.hide();
-  // colorMode(HSB);
+  colorMode(HSB);
 }
 
 // windowResized()에서 setup()에 준하는 구문을 실행해야할 경우를 대비해 init이라는 명칭의 함수를 만들어 둠.
@@ -58,24 +59,60 @@ function draw() {
   // line(pmouseX, pmouseY, mouseX, mouseY);
 
   noStroke();
-  fill(250, 255, 255, colorOpacity);
-  ellipse(width * 0.5, height * 0.4, width * 0.35, height * 0.5);
-  //얼굴 위치치
+  fill(0, 0, 100, colorOpacity);
+  ellipse(width * 0.5, height * 0.5, width * 0.35, height * 0.55);
 
-  fill(noseColorR, noseColorG, noseColorB, noseOpacity);
-  circle(width * 0.5, height * 0.5, width * 0.08);
+  textAlign(CENTER);
+  textSize(36);
+  fill(0, 0, 100, colorOpacity * 6);
+  text('얼굴을 원의 위치에 맞춰주세요.', width * 0.5, height * 0.85);
+  //얼굴 위치
+
+  fill(noseColorH, noseColorS, noseColorB, noseOpacity);
+  circle(width * 0.5, height * 0.6, width * 0.08);
   //루돌프 코
 
+  fill(100, 0, 100, noseOpacity);
+  circle(width * 0.51, height * 0.58, width * 0.02);
+  //루돌프 코 하이라이트
+
+  textAlign(CENTER);
+  textSize(56);
+  fill(0, 80, 80, noseOpacity);
+  stroke(100, 0, 100, noseOpacity);
+  strokeWeight(10);
+  text('Merry Christmas!', width * 0.5, height * 0.85);
+  //문구
+
+  noStroke();
+  fill(0, 80, 90, noseOpacity);
+  triangle(
+    width * 0.33,
+    height * 0.3,
+    width * 0.67,
+    height * 0.3,
+    width * 0.5,
+    height * 0.06
+  );
+
+  rectMode(CENTER);
+  fill(100, 0, 100, noseOpacity);
+  rect(width * 0.5, height * 0.3, width * 0.35, height * 0.08, 20);
+
+  fill(100, 0, 100, noseOpacity);
+  circle(width * 0.5, height * 0.044, width * 0.035);
+  //산타 모자
+
   if (opacity) {
-    colorOpacity = 0; // 버튼이 눌린 상태일 때 색상
+    colorOpacity = 0; // s키가 눌린 상태일 때 색상
   } else {
-    colorOpacity = 40; // 버튼이 눌리지 않은 상태일 때 색상
+    colorOpacity = 0.3; // s키가 눌리지 않은 상태일 때 색상
   }
 
   if (filter) {
-    noseOpacity = 255; // 버튼이 눌린 상태일 때 색상
+    noseOpacity = 1; // f키가 눌린 상태일 때 색상
   } else {
-    noseOpacity = 0; // 버튼이 눌리지 않은 상태일 때 색상
+    noseOpacity = 0; // f키가 눌리지 않은 상태일 때 색상
   }
 }
 
@@ -89,20 +126,20 @@ function keyPressed() {
 }
 
 function mouseClicked() {
-  if (noseColorR === 0) {
-    noseColorR = random(0, 255);
+  if (noseColorH === 0) {
+    noseColorH = random(0, 360);
   } else {
-    noseColorR = random(0, 255);
+    noseColorH = random(0, 360);
   }
-  if (noseColorG === 0) {
-    noseColorG = random(0, 255);
+  if (noseColorS === 0) {
+    noseColorS = random(90, 100);
   } else {
-    noseColorG = random(0, 255);
+    noseColorS = random(90, 100);
   }
   if (noseColorB === 0) {
-    noseColorB = random(0, 255);
+    noseColorB = random(90, 100);
   } else {
-    noseColorB = random(0, 255);
+    noseColorB = random(90, 100);
   }
 }
 
