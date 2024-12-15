@@ -8,11 +8,13 @@ const container = document.body.querySelector('.container-canvas');
 let capture;
 let colorOpacity = 40;
 let noseOpacity = 0;
+let fOpacity = 0;
 let noseColorH = 255;
 let noseColorS = 255;
 let noseColorB = 255;
 let opacity = false;
 let filter = false;
+let filter2 = false;
 let sparkleCounter = 0;
 
 function setup() {
@@ -58,22 +60,24 @@ function draw() {
   // stroke(lineHue, 90, 90);
   // line(pmouseX, pmouseY, mouseX, mouseY);
 
+  //얼굴 가이드라인
   noStroke();
   fill(0, 0, 100, colorOpacity);
-  ellipse(width * 0.5, height * 0.5, width * 0.35, height * 0.55);
+  ellipse(width * 0.5, height * 0.42, width * 0.35, height * 0.5);
 
   textAlign(CENTER);
   textSize(36);
   fill(0, 0, 100, colorOpacity * 6);
-  text('얼굴을 원의 위치에 맞춰주세요.', width * 0.5, height * 0.85);
+  text('얼굴을 원의 위치에 맞춰주세요.', width * 0.5, height * 0.75);
   //얼굴 위치
 
+  //크리스마스 필터 시작
   fill(noseColorH, noseColorS, noseColorB, noseOpacity);
-  circle(width * 0.5, height * 0.6, width * 0.08);
+  circle(width * 0.5, height * 0.5, width * 0.072);
   //루돌프 코
 
   fill(100, 0, 100, noseOpacity);
-  circle(width * 0.51, height * 0.58, width * 0.02);
+  circle(width * 0.51, height * 0.48, width * 0.018);
   //루돌프 코 하이라이트
 
   textAlign(CENTER);
@@ -87,9 +91,9 @@ function draw() {
   noStroke();
   fill(0, 80, 90, noseOpacity);
   triangle(
-    width * 0.33,
+    width * 0.35,
     height * 0.3,
-    width * 0.67,
+    width * 0.65,
     height * 0.3,
     width * 0.5,
     height * 0.06
@@ -97,11 +101,63 @@ function draw() {
 
   rectMode(CENTER);
   fill(100, 0, 100, noseOpacity);
-  rect(width * 0.5, height * 0.3, width * 0.35, height * 0.08, 20);
+  rect(width * 0.5, height * 0.3, width * 0.32, height * 0.08, 20);
 
   fill(100, 0, 100, noseOpacity);
   circle(width * 0.5, height * 0.044, width * 0.035);
   //산타 모자
+  //크리스마스 필터 끝
+
+  //종강 필터 시작
+
+  fill(0, 0, 100, fOpacity);
+  rect(width * 0.5, height * 0.85, width * 0.6, height * 0.3, 5);
+  fill(0, 0, 100, fOpacity);
+  rect(width * 0.5, height * 0.05, width * 0.6, height * 0.1, 5);
+  fill(0, 0, 100, fOpacity);
+  rect(width * 0.225, height * 0.4, width * 0.05, height * 0.65, 5);
+  fill(0, 0, 100, fOpacity);
+  rect(width * 0.775, height * 0.4, width * 0.05, height * 0.65, 5);
+  //인스타 피드 프레임
+
+  // fill(330, 40, 100, fOpacity);
+  // circle(width * 0.28, height * 0.05, width * 0.035);
+  fill(330, 40, 100, fOpacity);
+  circle(width * 0.28, height * 0.75, width * 0.035);
+  //프로필 사진
+
+  textAlign(CENTER);
+  textSize(20);
+  fill(0, 0, 0, fOpacity);
+  text('Jongang_Gabojago', width * 0.5, height * 0.055);
+  textAlign(CENTER);
+  textSize(14);
+  fill(0, 0, 0, fOpacity);
+  text('Jongang_Gabojago', width * 0.38, height * 0.76);
+  //프로필명
+
+  fill(120, 80, 60, fOpacity);
+  rect(width * 0.35, height * 0.56, width * 0.1, height * 0.25, 3);
+  fill(120, 80, 60, fOpacity);
+  rect(width * 0.35, height * 0.26, width * 0.05, height * 0.015, 3);
+  fill(120, 80, 60, fOpacity);
+  rect(width * 0.35, height * 0.36, width * 0.04, height * 0.2, 3);
+  fill(60, 80, 100, fOpacity);
+  rect(width * 0.35, height * 0.56, width * 0.1, height * 0.08, 3);
+  fill(0, 80, 80, fOpacity * 0.4);
+  circle(width * 0.43, height * 0.5, width * 0.05);
+  fill(0, 80, 80, fOpacity * 0.4);
+  circle(width * 0.58, height * 0.5, width * 0.05);
+  //임티
+
+  textAlign(CENTER);
+  textSize(24);
+  fill(200, 80, 90, fOpacity);
+  strokeWeight(10);
+  text('#우와종강이다#방학시작', width * 0.5, height * 0.85);
+  text('#다들_한학기_고생많으셨습니다', width * 0.5, height * 0.9);
+  //문구
+  //종강 필터 끝
 
   if (opacity) {
     colorOpacity = 0; // s키가 눌린 상태일 때 색상
@@ -114,6 +170,12 @@ function draw() {
   } else {
     noseOpacity = 0; // f키가 눌리지 않은 상태일 때 색상
   }
+
+  if (filter2) {
+    fOpacity = 1; // n키가 눌린 상태일 때 색상
+  } else {
+    fOpacity = 0; // n키가 눌리지 않은 상태일 때 색상
+  }
 }
 
 function keyPressed() {
@@ -121,6 +183,10 @@ function keyPressed() {
     opacity = !opacity;
   }
   if (key === 'F' || key === 'f') {
+    filter = !filter;
+  }
+  if (key === 'N' || key === 'n') {
+    filter2 = !filter2;
     filter = !filter;
   }
 }
